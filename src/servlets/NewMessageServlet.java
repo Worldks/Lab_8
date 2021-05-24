@@ -17,11 +17,13 @@ public class NewMessageServlet extends ChatServlet {
         request.setCharacterEncoding("UTF-8");
 
         String message = (String) request.getParameter("message");
-
+        //author.setLastInteractionTime(Calendar.getInstance().getTimeInMillis());
+        //пофиксил баг и добавил свою логику
         if (message != null && !"".equals(message)){
             ChatUser author = activeUsers.get((String) request.getSession().getAttribute("name"));
             synchronized (messages){
                 messages.addFirst(new ChatMessage(message , author, Calendar.getInstance().getTimeInMillis()));
+                author.increaseMessageAmount();
             }
         }
 
