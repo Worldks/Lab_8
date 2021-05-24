@@ -23,14 +23,14 @@ public class MessageListServlet extends ChatServlet {
         response.setCharacterEncoding("utf8");
 
         ChatUser author = activeUsers.get((String) request.getSession().getAttribute("name"));
-
+        int amount = author.getMessageAmount();
 
         PrintWriter pw = response.getWriter();
         pw.println("<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><meta http-equiv='refresh' content='1'></head>");
         pw.println("<body>");
 
         for (ChatMessage message : messages){
-            pw.println("<div><strong>" + message.getAuthor().getName() + "</strong>: " + message.getMessage() + "</div>");
+            pw.println("<div><strong>" + message.getAuthor().getName() + "</strong>(" + amount + "): " + message.getMessage() + "</div>");
         }
 
         pw.println("</body></html>");
